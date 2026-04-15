@@ -1,20 +1,19 @@
-# ── Core AI model ─────────────────────────────────────────────────────────────
+# Core AI model
 llama-cpp-python>=0.3.19
 
-# ── Document generation ────────────────────────────────────────────────────────
+# Document generation 
 python-pptx>=0.6.23
 python-docx>=1.2.0
 
-# ── Web search + image download ────────────────────────────────────────────────
+# Web search + image download 
 ddgs>=9.13.1
 requests>=2.33.1
 selenium>=4.6.0
 
-# ── System utilities ───────────────────────────────────────────────────────────
+# System utilities 
 psutil>=5.9.8
 pyfiglet>=1.0.2
 
-# ── Windows COM automation (optional — live in-app PPT/Word writing) ───────────
-# Required only on Windows. Skip on Linux/macOS.
+# Windows COM automation
 # After install run:  python -m pywin32_postinstall -install
 pywin32>=306; sys_platform == "win32"
