@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaperReady | Local AI Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #ffffff;
@@ -15,7 +17,7 @@
             --accent-blue: #0066ff;
             --border: #eeeeee;
             --card-bg: #fcfcfc;
-            
+
             /* --- Pill Colors --- */
             --pill-model-bg: #f3e8ff;
             --pill-model-text: #6b21a8;
@@ -25,9 +27,15 @@
             --pill-bridge-text: #9a3412;
             --pill-writing-bg: #dbeafe;
             --pill-writing-text: #1e40af;
+            --pill-browser-bg: #fef08a;
+            --pill-browser-text: #854d0e;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             background-color: var(--bg);
@@ -41,8 +49,10 @@
         .hero {
             padding: 12rem 2rem 6rem;
             text-align: center;
-            position: relative; /* container for absolute blurs */
-            overflow: hidden; /* contain the blurs */
+            position: relative;
+            /* container for absolute blurs */
+            overflow: hidden;
+            /* contain the blurs */
         }
 
         /* Hero Background Shapes */
@@ -52,9 +62,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* behind content */
-            filter: blur(70px); /* creates Google-style blending */
-            opacity: 0.5; /* subtle */
+            z-index: -1;
+            /* behind content */
+            filter: blur(70px);
+            /* creates Google-style blending */
+            opacity: 0.5;
+            /* subtle */
         }
 
         .shape {
@@ -64,15 +77,61 @@
         }
 
         /* Google Colors and starting positions */
-        .s1 { background: rgba(66, 133, 244, 0.7); width: 350px; height: 350px; top: -100px; left: 15%; animation-delay: 0s; } /* Blue */
-        .s2 { background: rgba(219, 68, 55, 0.6); width: 250px; height: 250px; bottom: -50px; right: 20%; animation-delay: -4s; } /* Red */
-        .s3 { background: rgba(244, 180, 0, 0.6); width: 200px; height: 200px; top: 20%; right: 10%; animation-delay: -8s; } /* Yellow */
-        .s4 { background: rgba(15, 157, 88, 0.5); width: 300px; height: 300px; bottom: 10%; left: 25%; animation-delay: -12s; } /* Green */
+        .s1 {
+            background: rgba(66, 133, 244, 0.7);
+            width: 350px;
+            height: 350px;
+            top: -100px;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        /* Blue */
+        .s2 {
+            background: rgba(219, 68, 55, 0.6);
+            width: 250px;
+            height: 250px;
+            bottom: -50px;
+            right: 20%;
+            animation-delay: -4s;
+        }
+
+        /* Red */
+        .s3 {
+            background: rgba(244, 180, 0, 0.6);
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: 10%;
+            animation-delay: -8s;
+        }
+
+        /* Yellow */
+        .s4 {
+            background: rgba(15, 157, 88, 0.5);
+            width: 300px;
+            height: 300px;
+            bottom: 10%;
+            left: 25%;
+            animation-delay: -12s;
+        }
+
+        /* Green */
 
         @keyframes floatShape {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(40px, 60px) rotate(5deg); }
-            66% { transform: translate(-60px, 30px) rotate(-5deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(40px, 60px) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-60px, 30px) rotate(-5deg);
+            }
         }
 
         h1 {
@@ -81,7 +140,8 @@
             line-height: 1;
             letter-spacing: -3px;
             margin-bottom: 2rem;
-            position: relative; z-index: 1;
+            position: relative;
+            z-index: 1;
         }
 
         #rotator {
@@ -97,7 +157,8 @@
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
-            position: relative; z-index: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
@@ -129,8 +190,11 @@
             position: relative;
         }
 
-        .card:hover { border-color: var(--accent-blue); transform: translateY(-5px); }
-        
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
         .card-icon {
             width: 32px;
             height: 32px;
@@ -138,8 +202,16 @@
             fill: var(--accent-blue);
         }
 
-        .card h3 { font-size: 1.1rem; margin-bottom: 0.8rem; font-weight: 700; }
-        .card p { color: var(--text-muted); font-size: 0.9rem; }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
 
         /* --- Technology Section (Colored Pills) --- */
         .tech-grid {
@@ -167,21 +239,46 @@
             fill: var(--accent-blue);
         }
 
-        .tech-item h4 { font-size: 0.8rem; font-weight: 800; margin-bottom: 0.5rem; }
-        
+        .tech-item h4 {
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
         .tech-item span {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
             padding: 0.3rem 0.7rem;
-            border-radius: 50px; /* pill shape */
+            border-radius: 50px;
+            /* pill shape */
             font-weight: 600;
         }
 
         /* Applying different colors */
-        .pill-model { background: var(--pill-model-bg); color: var(--pill-model-text); }
-        .pill-core { background: var(--pill-core-bg); color: var(--pill-core-text); }
-        .pill-bridge { background: var(--pill-bridge-bg); color: var(--pill-bridge-text); }
-        .pill-writing { background: var(--pill-writing-bg); color: var(--pill-writing-text); }
+        .pill-model {
+            background: var(--pill-model-bg);
+            color: var(--pill-model-text);
+        }
+
+        .pill-core {
+            background: var(--pill-core-bg);
+            color: var(--pill-core-text);
+        }
+
+        .pill-bridge {
+            background: var(--pill-bridge-bg);
+            color: var(--pill-bridge-text);
+        }
+
+        .pill-writing {
+            background: var(--pill-writing-bg);
+            color: var(--pill-writing-text);
+        }
+
+        .pill-browser {
+            background: var(--pill-browser-bg);
+            color: var(--pill-browser-text);
+        }
 
         /* --- Timeline Roadmap --- */
         .timeline {
@@ -201,7 +298,12 @@
             background: var(--border);
         }
 
-        .timeline-item { position: relative; padding-left: 80px; margin-bottom: 3rem; }
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3rem;
+        }
+
         .timeline-dot {
             position: absolute;
             left: 46px;
@@ -214,8 +316,16 @@
             z-index: 2;
         }
 
-        .timeline-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
-        .timeline-content p { font-size: 0.8rem; color: var(--text-muted); }
+        .timeline-content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
 
         /* --- Download CTA --- */
         .download-cta {
@@ -249,8 +359,16 @@
             padding: 6rem 2rem;
         }
 
-        .usage-container { max-width: 700px; margin: 0 auto; }
-        .usage-container h2 { margin-bottom: 1.5rem; font-size: 1.8rem; letter-spacing: -1px; }
+        .usage-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .usage-container h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+        }
 
         pre {
             background: #0a0a0a;
@@ -264,19 +382,44 @@
             overflow-x: auto;
         }
 
-        .blue { color: var(--accent-blue); }
+        .blue {
+            color: var(--accent-blue);
+        }
 
-        footer { text-align: center; padding: 4rem; font-size: 0.75rem; color: var(--text-muted); }
+        footer {
+            text-align: center;
+            padding: 4rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
 
         @media (max-width: 768px) {
-            h1 { font-size: 3rem; letter-spacing: -1.5px; }
-            #rotator { min-width: auto; display: block; text-align: center; }
-            .timeline::before { left: 20px; }
-            .timeline-dot { left: 16px; }
-            .timeline-item { padding-left: 50px; }
+            h1 {
+                font-size: 3rem;
+                letter-spacing: -1.5px;
+            }
+
+            #rotator {
+                min-width: auto;
+                display: block;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 16px;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <main>
@@ -287,59 +430,93 @@
                 <div class="shape s3"></div>
                 <div class="shape s4"></div>
             </div>
-            
+
             <h1>PaperReady is for <br><span id="rotator">Documents.</span></h1>
-            <p class="hero-desc">An offline AI architect that builds professional PowerPoint decks and Word documents directly on your hardware.</p>
+            <p class="hero-desc">An offline AI architect that builds professional PowerPoint decks and Word documents
+                directly on your hardware.</p>
         </section>
 
         <div class="section-title">Capabilities</div>
         <section class="grid-container">
             <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1-10 10 10 10 0 0 1-10-10c0-5.523 4.477-10 10-10zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M11 11H9v2h2v2h2v-2h2v-2h-2V9h-2v2z" opacity=".5"/></svg>
+                <svg class="card-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1-10 10 10 10 0 0 1-10-10c0-5.523 4.477-10 10-10zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                    <path d="M11 11H9v2h2v2h2v-2h2v-2h-2V9h-2v2z" opacity=".5" />
+                </svg>
                 <h3>COM Automation</h3>
-                <p>Watches the AI interact live with Microsoft Office windows, automating the writing process in real-time.</p>
+                <p>Watches the AI interact live with Microsoft Office windows, automating the writing process in
+                    real-time.</p>
             </div>
             <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24"><path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2h-8l-2-2zm10 14H4V8h16v10zm-6.5-6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/><path d="M15.5 15.5l3 3" stroke-width="2" stroke-linecap="round"/></svg>
+                <svg class="card-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2h-8l-2-2zm10 14H4V8h16v10zm-6.5-6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
+                    <path d="M15.5 15.5l3 3" stroke-width="2" stroke-linecap="round" />
+                </svg>
                 <h3>Workspace RAG</h3>
                 <p>Retrieval-Augmented Generation that searches your local folders to summarize decks and logs.</p>
             </div>
             <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm7 9c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.37l7-2.33 7 2.33V11zm-7 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3-4a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2h1v-1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h1v-2z"/></svg>
+                <svg class="card-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm7 9c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.37l7-2.33 7 2.33V11zm-7 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3-4a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2h1v-1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h1v-2z" />
+                </svg>
                 <h3>Data Sovereignty</h3>
                 <p>Zero data leakage. Everything from inference to file writing happens 100% offline.</p>
+            </div>
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                </svg>
+                <h3>Live Web Search</h3>
+                <p>Spins up a live Selenium browser to intelligently scrape current events and download high-quality
+                    images directly into your slides.</p>
             </div>
         </section>
 
         <div class="section-title">Technology</div>
         <section class="tech-grid">
             <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24"><path d="M21 11.5v3.1a3 3 0 0 1-3 3h-1.5a1 1 0 0 1 0-2H18a1 1 0 0 0 1-1v-3.1a1 1 0 1 1 2 0zm-18 0v3.1a3 3 0 0 0 3 3h1.5a1 1 0 0 0 0-2H6a1 1 0 0 1-1-1v-3.1a1 1 0 1 0-2 0zm13-5a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm2 0a7 7 0 1 0-14 0c0 1.5.47 2.89 1.28 4.03l-.58.57 1.41 1.41 1.11-1.11A6.963 6.963 0 0 0 12 13c1.3 0 2.51-.35 3.56-.97l1.11 1.11 1.41-1.41-.58-.57A6.963 6.963 0 0 0 18 6.5z"/></svg>
+                <svg class="tech-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M21 11.5v3.1a3 3 0 0 1-3 3h-1.5a1 1 0 0 1 0-2H18a1 1 0 0 0 1-1v-3.1a1 1 0 1 1 2 0zm-18 0v3.1a3 3 0 0 0 3 3h1.5a1 1 0 0 0 0-2H6a1 1 0 0 1-1-1v-3.1a1 1 0 1 0-2 0zm13-5a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm2 0a7 7 0 1 0-14 0c0 1.5.47 2.89 1.28 4.03l-.58.57 1.41 1.41 1.11-1.11A6.963 6.963 0 0 0 12 13c1.3 0 2.51-.35 3.56-.97l1.11 1.11 1.41-1.41-.58-.57A6.963 6.963 0 0 0 18 6.5z" />
+                </svg>
                 <h4>Model</h4><span class="pill-model">Phi-3 GGUF</span>
             </div>
             <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V19h-2v-2.07c-2.83-.48-5-2.94-5-5.93 0-3.31 2.69-6 6-6s6 2.69 6 6c0 2.99-2.17 5.45-5 5.93zM12 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm0-4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" opacity=".6"/></svg>
+                <svg class="tech-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V19h-2v-2.07c-2.83-.48-5-2.94-5-5.93 0-3.31 2.69-6 6-6s6 2.69 6 6c0 2.99-2.17 5.45-5 5.93zM12 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm0-4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"
+                        opacity=".6" />
+                </svg>
                 <h4>Core</h4><span class="pill-core">Llama.cpp</span>
             </div>
             <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V19h-2v-2.07A8.013 8.013 0 0 1 4.07 13H7v-2H4.07A8.013 8.013 0 0 1 11 4.07V7h2V4.07A8.013 8.013 0 0 1 19.93 11H17v2h2.93A8.013 8.013 0 0 1 13 16.93z"/></svg>
+                <svg class="tech-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V19h-2v-2.07A8.013 8.013 0 0 1 4.07 13H7v-2H4.07A8.013 8.013 0 0 1 11 4.07V7h2V4.07A8.013 8.013 0 0 1 19.93 11H17v2h2.93A8.013 8.013 0 0 1 13 16.93z" />
+                </svg>
                 <h4>Bridge</h4><span class="pill-bridge">Win32 COM</span>
             </div>
             <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <svg class="tech-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                </svg>
                 <h4>Writing</h4><span class="pill-writing">pptx / docx</span>
+            </div>
+            <div class="tech-item card">
+                <svg class="tech-icon" viewBox="0 0 24 24">
+                    <path d="M3 4H21V20H3V4ZM5 8V18H19V8H5ZM5 6H19V4H5V6ZM11 10H13V12H11V10ZM11 14H13V16H11V14Z" />
+                </svg>
+                <h4>Browser</h4><span class="pill-browser">Selenium</span>
             </div>
         </section>
 
         <div class="section-title">Roadmap</div>
         <section class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h4>Web Search</h4>
-                    <p>Live data retrieval to ground local model responses.</p>
-                </div>
-            </div>
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
@@ -357,19 +534,20 @@
         </section>
 
         <section class="download-cta">
-             <p>Want to download the setup? <a href="https://github.com/Bhargavmupparisetty/paperReady.git" target="_blank">Click here</a> to visit the repository.</p>
+            <p>Want to download the setup? <a href="https://github.com/Bhargavmupparisetty/paperReady.git"
+                    target="_blank">Click here</a> to visit the repository.</p>
         </section>
 
         <section class="usage-section">
             <div class="usage-container">
                 <h2>Quick Deployment</h2>
                 <pre>
-<span class="blue"># Setup</span>
+<span class="blue"># 1. Download</span>
 git clone https://github.com/Bhargavmupparisetty/paperReady.git
+cd paperReady
 
-<span class="blue"># Execute</span>
-python cli.py
-
+<span class="blue"># 2. Launch (Auto-installs dependencies on first run)</span>
+Run_PaperReady.bat
                 </pre>
             </div>
         </section>
@@ -394,4 +572,5 @@ python cli.py
         }, 2000);
     </script>
 </body>
+
 </html>
