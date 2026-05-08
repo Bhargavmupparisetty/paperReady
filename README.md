@@ -2,7 +2,7 @@
 
 **PaperReady** is a professional-grade, hybrid AI application designed to transform local LLM inference into high-quality document automation. It bridges the gap between CLI-based AI interaction and real-time visual output in Microsoft Office and a web-based Canvas.
 
-![PaperReady Banner](https://img.shields.io/badge/Version-3.0_Platinum-4285F4?style=for-the-badge)
+![PaperReady Banner](https://img.shields.io/badge/Version-3.0-4285F4?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?style=for-the-badge&logo=windows)
 ![Privacy](https://img.shields.io/badge/Privacy-100%25_Offline-34A853?style=for-the-badge)
 
