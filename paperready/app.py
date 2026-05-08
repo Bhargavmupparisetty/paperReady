@@ -1,5 +1,7 @@
 import sys
 import atexit
+import re
+import webbrowser
 from pathlib import Path
 from paperready.config import IDENTITY, ABOUT_TRIGGERS, PAD, W, LEFT, INNER
 from paperready.utils import (
@@ -14,8 +16,9 @@ from paperready.extractors import extract_workspace_file
 from paperready.llm import load_model, run_llm_streaming
 from paperready.generators import (
     WIN32_OK, create_pptx_via_com, create_docx_via_com,
-    create_pptx_fallback, create_docx_fallback, create_txt
+    create_pptx_fallback, create_docx_fallback, create_txt, create_html
 )
+import paperready.server as server
 from paperready.websearch import (
     SELENIUM_OK, DDG_OK, needs_web_search, web_search_text, web_search_images, cleanup_web_images
 )
@@ -82,6 +85,7 @@ def print_banner():
     print(_box_line("create a 3 slide ppt about X      ->  opens PPT, writes 3 slides"))
     print(_box_line("write a word document about X     ->  opens Word, writes document"))
     print(_box_line("write a text file about X         ->  saves .txt"))
+    print(_box_line("create a diagram about X          ->  opens HTML Playground"))
     print(_box_line("summarize report.pptx             ->  reads & summarises workspace file"))
     print(_box_line("summarize notes.docx              ->  reads & summarises workspace file"))
     print(_box_line("who are you / what can you do     ->  about PaperReady"))
@@ -112,7 +116,8 @@ def prompt_user() -> str:
 def handle_file_output(intent: str, fname: Path, com_app=None, com_doc=None):
     app_names = {"pptx": "Microsoft PowerPoint",
                  "docx": "Microsoft Word",
-                 "txt": "Notepad / text editor"}
+                 "txt": "Notepad / text editor",
+                 "playground": "Web Browser"}
     app_name = app_names.get(intent, "the default application")
     print_ok(f"File saved  ->  {fname}")
     print_info(f"File size   ->  {fname.stat().st_size // 1024} KB")
@@ -168,6 +173,16 @@ def handle_summarise_request(llm, rag: WorkspaceRAG, user_input: str, history: l
     except Exception as e:
         print_err(f"Inference error: {e}")
         return history
+        
+    graphviz_code = ""
+    m = re.search(r"```dot\n(.*?)\n```", llm_response, re.DOTALL | re.IGNORECASE)
+    if m:
+        graphviz_code = m.group(1).strip()
+        print_info("Detected Graphviz diagram. Rendering in UI...")
+        
+    server.update_ui_state(f"Summary: {target_path.name}", llm_response, graphviz_code)
+    print_ok("Canvas UI updated with document summary!")
+    
     history.append({"role": "user", "content": user_input})
     history.append({"role": "assistant", "content": llm_response})
     return history
@@ -190,6 +205,12 @@ def main():
     except Exception as e:
         print_err(f"Model load failed: {e}")
         sys.exit(1)
+
+    print_section("Starting Editor UI")
+    port = server.start_server()
+    if port:
+        print_ok(f"Editor UI running on http://localhost:{port}")
+        server.open_ui()
 
     print_banner()
 
@@ -299,5 +320,16 @@ def main():
                 handle_file_output("txt", fname)
             except Exception as e:
                 print_err(f"TXT error: {e}")
+
+        elif intent == "playground":
+            print_section(f"Updating Canvas UI  ->  {topic}")
+            graphviz_code = ""
+            m = re.search(r"```dot\n(.*?)\n```", llm_response, re.DOTALL | re.IGNORECASE)
+            if m:
+                graphviz_code = m.group(1).strip()
+                print_info("Detected Graphviz diagram. Rendering in UI...")
+            
+            server.update_ui_state(topic, llm_response, graphviz_code)
+            print_ok("Canvas UI updated!")
 
         print(_hr("-"))

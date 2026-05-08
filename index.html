@@ -7,28 +7,20 @@
     <title>PaperReady | Local AI Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Google+Sans:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg: #ffffff;
-            --text-main: #000000;
-            --text-muted: #666666;
-            --accent-blue: #0066ff;
-            --border: #eeeeee;
-            --card-bg: #fcfcfc;
-
-            /* --- Pill Colors --- */
-            --pill-model-bg: #f3e8ff;
-            --pill-model-text: #6b21a8;
-            --pill-core-bg: #dcfce7;
-            --pill-core-text: #166534;
-            --pill-bridge-bg: #ffedd5;
-            --pill-bridge-text: #9a3412;
-            --pill-writing-bg: #dbeafe;
-            --pill-writing-text: #1e40af;
-            --pill-browser-bg: #fef08a;
-            --pill-browser-text: #854d0e;
+            --bg-main: #ffffff;
+            --bg-sub: #f8f9fa;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --border: #dadce0;
+            --shadow-soft: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
         }
 
         * {
@@ -38,539 +30,446 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Outfit', 'Google Sans', sans-serif;
+            line-height: 1.5;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Hero Section (Rotator + Google Animation) --- */
-        .hero {
-            padding: 12rem 2rem 6rem;
-            text-align: center;
-            position: relative;
-            /* container for absolute blurs */
-            overflow: hidden;
-            /* contain the blurs */
-        }
-
-        /* Hero Background Shapes */
-        .hero-bg-shapes {
-            position: absolute;
+        /* --- Navigation Mock --- */
+        nav {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* behind content */
-            filter: blur(70px);
-            /* creates Google-style blending */
-            opacity: 0.5;
-            /* subtle */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
         }
 
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            animation: floatShape 15s infinite ease-in-out;
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Google Colors and starting positions */
-        .s1 {
-            background: rgba(66, 133, 244, 0.7);
-            width: 350px;
-            height: 350px;
-            top: -100px;
-            left: 15%;
-            animation-delay: 0s;
+        .logo span { color: var(--google-blue); }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        /* Blue */
-        .s2 {
-            background: rgba(219, 68, 55, 0.6);
-            width: 250px;
-            height: 250px;
-            bottom: -50px;
-            right: 20%;
-            animation-delay: -4s;
-        }
-
-        /* Red */
-        .s3 {
-            background: rgba(244, 180, 0, 0.6);
-            width: 200px;
-            height: 200px;
-            top: 20%;
-            right: 10%;
-            animation-delay: -8s;
-        }
-
-        /* Yellow */
-        .s4 {
-            background: rgba(15, 157, 88, 0.5);
-            width: 300px;
-            height: 300px;
-            bottom: 10%;
-            left: 25%;
-            animation-delay: -12s;
-        }
-
-        /* Green */
-
-        @keyframes floatShape {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-
-            33% {
-                transform: translate(40px, 60px) rotate(5deg);
-            }
-
-            66% {
-                transform: translate(-60px, 30px) rotate(-5deg);
-            }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: #e8f0fe;
+            color: var(--google-blue);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
         }
 
         h1 {
-            font-size: 5.5rem;
-            font-weight: 800;
-            line-height: 1;
-            letter-spacing: -3px;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
         }
 
-        #rotator {
-            color: var(--accent-blue);
-            display: inline-block;
-            min-width: 400px;
-            text-align: left;
-            transition: opacity 0.3s ease;
+        h1 em {
+            font-style: normal;
+            color: var(--text-primary);
         }
 
         .hero-desc {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-weight: 400;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            margin: 6rem 0 3rem;
-            color: var(--text-muted);
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        /* --- Functionality Cards --- */
-        .grid-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--google-blue);
+            color: white;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: #1b66df;
+            box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--google-blue);
+        }
+
+        .btn-outline:hover {
+            background: #f8fbff;
+            border-color: #d2e3fc;
+        }
+
+        /* --- Dashboard Mockup --- */
+        .mockup-container {
+            max-width: 1100px;
+            margin: 4rem auto;
             padding: 0 2rem;
         }
 
-        .card {
-            background: var(--card-bg);
+        .mockup {
+            background: white;
+            border-radius: 8px;
             border: 1px solid var(--border);
-            padding: 2.2rem;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
 
-        .card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-5px);
+        .mockup-bar {
+            height: 40px;
+            background: #f1f3f4;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 6px;
         }
 
-        .card-icon {
-            width: 32px;
-            height: 32px;
+        .mockup-dot { width: 10px; height: 10px; border-radius: 50%; background: #dadce0; }
+
+        .mockup-content {
+            aspect-ratio: 16/9;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* --- Features Grid --- */
+        .features {
+            background: var(--bg-sub);
+            padding: 8rem 2rem;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .features-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 1.5rem;
-            fill: var(--accent-blue);
         }
 
-        .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
+        .blue-icon { background: #e8f0fe; color: #1a73e8; }
+        .red-icon { background: #fce8e6; color: #d93025; }
+        .green-icon { background: #e6f4ea; color: #1e8e3e; }
+        .yellow-icon { background: #fef7e0; color: #f9ab00; }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Technology Pills --- */
+        .tech-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .tech-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 3rem;
+        }
+
+        .chip {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chip span { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background: white;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
             font-weight: 700;
+            margin-bottom: 1.5rem;
         }
 
-        .card p {
-            color: var(--text-muted);
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-size: 0.9rem;
         }
 
-        /* --- Technology Section (Colored Pills) --- */
-        .tech-grid {
-            max-width: 900px;
+        .footer-links a:hover { color: var(--google-blue); }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* --- Terminal / Install Section --- */
+        .install-section {
+            padding: 8rem 2rem;
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            padding: 0 2rem;
         }
 
-        .tech-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        .terminal {
+            background: #202124;
+            border-radius: 8px;
             padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .tech-icon {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 1rem;
-            fill: var(--accent-blue);
-        }
-
-        .tech-item h4 {
-            font-size: 0.8rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .tech-item span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 50px;
-            /* pill shape */
-            font-weight: 600;
-        }
-
-        /* Applying different colors */
-        .pill-model {
-            background: var(--pill-model-bg);
-            color: var(--pill-model-text);
-        }
-
-        .pill-core {
-            background: var(--pill-core-bg);
-            color: var(--pill-core-text);
-        }
-
-        .pill-bridge {
-            background: var(--pill-bridge-bg);
-            color: var(--pill-bridge-text);
-        }
-
-        .pill-writing {
-            background: var(--pill-writing-bg);
-            color: var(--pill-writing-text);
-        }
-
-        .pill-browser {
-            background: var(--pill-browser-bg);
-            color: var(--pill-browser-text);
-        }
-
-        /* --- Timeline Roadmap --- */
-        .timeline {
-            max-width: 500px;
-            margin: 4rem auto;
-            position: relative;
-            padding: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--border);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 80px;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 46px;
-            top: 6px;
-            width: 10px;
-            height: 10px;
-            background: var(--bg);
-            border: 2px solid var(--accent-blue);
-            border-radius: 50%;
-            z-index: 2;
-        }
-
-        .timeline-content h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .timeline-content p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Download CTA --- */
-        .download-cta {
-            text-align: center;
-            margin: 8rem 0 4rem;
-            padding: 0 2rem;
-        }
-
-        .download-cta p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .download-cta a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-weight: 800;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .download-cta a:hover {
-            border-bottom: 2px solid var(--accent-blue);
-        }
-
-        /* --- Usage Section --- */
-        .usage-section {
-            background: #000;
             color: #fff;
-            padding: 6rem 2rem;
-        }
-
-        .usage-container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .usage-container h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            letter-spacing: -1px;
-        }
-
-        pre {
-            background: #0a0a0a;
-            padding: 1.5rem;
-            border-radius: 12px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            line-height: 1.6;
-            color: #999;
-            border: 1px solid #1a1a1a;
-            overflow-x: auto;
+            font-size: 0.9rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        .blue {
-            color: var(--accent-blue);
+        .terminal-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 1rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 4rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
+        .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        .cmd { color: var(--google-green); }
+        .comment { color: #80868b; }
+        .path { color: var(--google-blue); }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-                letter-spacing: -1.5px;
-            }
-
-            #rotator {
-                min-width: auto;
-                display: block;
-                text-align: center;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-dot {
-                left: 16px;
-            }
-
-            .timeline-item {
-                padding-left: 50px;
-            }
+            h1 { font-size: 3rem; }
+            .hero-desc { font-size: 1.2rem; }
         }
     </style>
 </head>
 
 <body>
 
+    <nav>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#4285F4"/>
+                <path d="M2 17L12 22L22 17" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            PaperReady<span>.</span>
+        </div>
+    </nav>
+
     <main>
         <section class="hero">
-            <div class="hero-bg-shapes">
-                <div class="shape s1"></div>
-                <div class="shape s2"></div>
-                <div class="shape s3"></div>
-                <div class="shape s4"></div>
-            </div>
-
-            <h1>PaperReady is for <br><span id="rotator">Documents.</span></h1>
-            <p class="hero-desc">An offline AI architect that builds professional PowerPoint decks and Word documents
-                directly on your hardware.</p>
-        </section>
-
-        <div class="section-title">Capabilities</div>
-        <section class="grid-container">
-            <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1-10 10 10 10 0 0 1-10-10c0-5.523 4.477-10 10-10zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
-                    <path d="M11 11H9v2h2v2h2v-2h2v-2h-2V9h-2v2z" opacity=".5" />
-                </svg>
-                <h3>COM Automation</h3>
-                <p>Watches the AI interact live with Microsoft Office windows, automating the writing process in
-                    real-time.</p>
-            </div>
-            <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2h-8l-2-2zm10 14H4V8h16v10zm-6.5-6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
-                    <path d="M15.5 15.5l3 3" stroke-width="2" stroke-linecap="round" />
-                </svg>
-                <h3>Workspace RAG</h3>
-                <p>Retrieval-Augmented Generation that searches your local folders to summarize decks and logs.</p>
-            </div>
-            <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm7 9c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.37l7-2.33 7 2.33V11zm-7 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3-4a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2h1v-1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h1v-2z" />
-                </svg>
-                <h3>Data Sovereignty</h3>
-                <p>Zero data leakage. Everything from inference to file writing happens 100% offline.</p>
-            </div>
-            <div class="card">
-                <svg class="card-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                </svg>
-                <h3>Live Web Search</h3>
-                <p>Spins up a live Selenium browser to intelligently scrape current events and download high-quality
-                    images directly into your slides.</p>
+            <div class="hero-badge">v3.0 Platinum Edition</div>
+            <h1><em>Build smarter</em> <br>with Local AI.</h1>
+            <p class="hero-desc">The professional-grade architect that builds PowerPoint decks and Word documents directly on your hardware. 100% Offline.</p>
+            <div class="hero-btns">
+                <a href="#install" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/Bhargavmupparisetty/paperReady.git" target="_blank" class="btn btn-outline">View GitHub</a>
             </div>
         </section>
 
-        <div class="section-title">Technology</div>
-        <section class="tech-grid">
-            <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M21 11.5v3.1a3 3 0 0 1-3 3h-1.5a1 1 0 0 1 0-2H18a1 1 0 0 0 1-1v-3.1a1 1 0 1 1 2 0zm-18 0v3.1a3 3 0 0 0 3 3h1.5a1 1 0 0 0 0-2H6a1 1 0 0 1-1-1v-3.1a1 1 0 1 0-2 0zm13-5a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm2 0a7 7 0 1 0-14 0c0 1.5.47 2.89 1.28 4.03l-.58.57 1.41 1.41 1.11-1.11A6.963 6.963 0 0 0 12 13c1.3 0 2.51-.35 3.56-.97l1.11 1.11 1.41-1.41-.58-.57A6.963 6.963 0 0 0 18 6.5z" />
-                </svg>
-                <h4>Model</h4><span class="pill-model">Phi-3 GGUF</span>
-            </div>
-            <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V19h-2v-2.07c-2.83-.48-5-2.94-5-5.93 0-3.31 2.69-6 6-6s6 2.69 6 6c0 2.99-2.17 5.45-5 5.93zM12 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm0-4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"
-                        opacity=".6" />
-                </svg>
-                <h4>Core</h4><span class="pill-core">Llama.cpp</span>
-            </div>
-            <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V19h-2v-2.07A8.013 8.013 0 0 1 4.07 13H7v-2H4.07A8.013 8.013 0 0 1 11 4.07V7h2V4.07A8.013 8.013 0 0 1 19.93 11H17v2h2.93A8.013 8.013 0 0 1 13 16.93z" />
-                </svg>
-                <h4>Bridge</h4><span class="pill-bridge">Win32 COM</span>
-            </div>
-            <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24">
-                    <path
-                        d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
-                </svg>
-                <h4>Writing</h4><span class="pill-writing">pptx / docx</span>
-            </div>
-            <div class="tech-item card">
-                <svg class="tech-icon" viewBox="0 0 24 24">
-                    <path d="M3 4H21V20H3V4ZM5 8V18H19V8H5ZM5 6H19V4H5V6ZM11 10H13V12H11V10ZM11 14H13V16H11V14Z" />
-                </svg>
-                <h4>Browser</h4><span class="pill-browser">Selenium</span>
-            </div>
-        </section>
-
-        <div class="section-title">Roadmap</div>
-        <section class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h4>Email Integration</h4>
-                    <p>Automated Outlook drafting via secure COM hooks.</p>
+        <div class="mockup-container">
+            <div class="mockup">
+                <div class="mockup-bar">
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                </div>
+                <div class="mockup-content">
+                    <div style="width: 100%; max-width: 600px;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color: #1a73e8;">Interactive Canvas</h2>
+                        <p style="color: #5f6368; margin-bottom: 2rem;">A real-time hybrid dashboard for your document workflows.</p>
+                        <div style="background: #f1f3f4; border-radius: 8px; padding: 2rem; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                            <div style="text-align: left;">
+                                <div style="font-weight: 700; color: #4285f4; font-size: 1.2rem;">Live Summaries</div>
+                                <div style="height: 4px; width: 60px; background: #4285f4; margin-top: 4px;"></div>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: 700; color: #34a853; font-size: 1.2rem;">Graphviz Logic</div>
+                                <div style="height: 4px; width: 60px; background: #34a853; margin-top: 4px;"></div>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: 700; color: #ea4335; font-size: 1.2rem;">Direct Automation</div>
+                                <div style="height: 4px; width: 60px; background: #ea4335; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h4>Local Vision</h4>
-                    <p>Image generation and analysis for visual-heavy reports.</p>
+        </div>
+
+        <section class="features">
+            <div class="features-header">
+                <h2>Designed for Productivity</h2>
+                <p>Everything you need for a professional document workflow.</p>
+            </div>
+            <div class="grid">
+                <div class="feature-card">
+                    <div class="icon-box blue-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3>COM Automation</h3>
+                    <p>Watches the AI build your slides live in Microsoft PowerPoint and Word. No file middle-men.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box green-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3>Data Sovereignty</h3>
+                    <p>Your documents stay on your machine. Local inference means zero data leakage to external servers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box red-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3>Workspace RAG</h3>
+                    <p>Search and summarize your local folders. Feed your existing knowledge directly into new decks.</p>
                 </div>
             </div>
         </section>
 
-        <section class="download-cta">
-            <p>Want to download the setup? <a href="https://github.com/Bhargavmupparisetty/paperReady.git"
-                    target="_blank">Click here</a> to visit the repository.</p>
+        <section class="tech-section">
+            <h2>The Tech Behind the Magic</h2>
+            <div class="tech-chips">
+                <div class="chip"><span style="background: #4285f4;"></span> Phi-3 Mini</div>
+                <div class="chip"><span style="background: #ea4335;"></span> Llama.cpp</div>
+                <div class="chip"><span style="background: #fbbc04;"></span> Win32 COM</div>
+                <div class="chip"><span style="background: #34a853;"></span> Selenium</div>
+                <div class="chip"><span style="background: #4285f4;"></span> Viz.js</div>
+                <div class="chip"><span style="background: #5f6368;"></span> Python 3.10+</div>
+            </div>
         </section>
 
-        <section class="usage-section">
-            <div class="usage-container">
-                <h2>Quick Deployment</h2>
-                <pre>
-<span class="blue"># 1. Download</span>
-git clone https://github.com/Bhargavmupparisetty/paperReady.git
-cd paperReady
-
-<span class="blue"># 2. Launch (Auto-installs dependencies on first run)</span>
-Run_PaperReady.bat
-                </pre>
+        <section id="install" class="install-section">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Start Building Now</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="t-dot" style="background: #ff5f56;"></div>
+                    <div class="t-dot" style="background: #ffbd2e;"></div>
+                    <div class="t-dot" style="background: #27c93f;"></div>
+                </div>
+                <div>
+                    <span class="comment"># 1. Clone the repository</span><br>
+                    <span class="cmd">git clone</span> https://github.com/Bhargavmupparisetty/paperReady.git<br>
+                    <span class="cmd">cd</span> paperReady<br><br>
+                    <span class="comment"># 2. Launch the Architect</span><br>
+                    <span class="path">.\Run_PaperReady.bat</span>
+                </div>
             </div>
+            <p style="text-align: center; margin-top: 2rem; color: #5f6368;">Automatic dependency verification and AI engine setup.</p>
         </section>
     </main>
 
     <footer>
-        PaperReady by Bhargav &bull; 2026
+        <div class="footer-logo">PaperReady Architect</div>
+        <ul class="footer-links">
+            <li><a href="https://github.com/Bhargavmupparisetty/paperReady.git">GitHub</a></li>
+        </ul>
+        <div class="copyright">&copy; 2026 Bhargav Mupparisetty. Built for privacy and performance.</div>
     </footer>
 
-    <script>
-        const words = ["Documents.", "PowerPoints.", "Summarization."];
-        let i = 0;
-        const rotator = document.getElementById("rotator");
-
-        setInterval(() => {
-            rotator.style.opacity = 0;
-            setTimeout(() => {
-                i = (i + 1) % words.length;
-                rotator.textContent = words[i];
-                rotator.style.opacity = 1;
-            }, 200);
-        }, 2000);
-    </script>
 </body>
 
-</html>
+</html>

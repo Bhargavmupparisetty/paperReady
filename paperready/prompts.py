@@ -38,6 +38,11 @@ SYSTEM_PROMPT_BASE = (
     "Include at least 4 detailed sections. No markdown code fences.\n\n"
     "====== FORMAT FOR TEXT NOTES ======\n"
     "Plain text, clear section headings, no formatting syntax.\n\n"
+    "====== FORMAT FOR PLAYGROUND (CANVAS) ======\n"
+    "Output regular Markdown text summarizing the topic.\n"
+    "If a diagram, flowchart, graph, or visual map is requested or appropriate, "
+    "you MUST include a graphviz block (```dot\n...\n```) containing valid Graphviz DOT language code.\n"
+    "Make the Graphviz diagrams visually appealing, properly structured, and detailed. Add colors and shapes using DOT attributes.\n\n"
     + _identity_block()
 )
 
@@ -65,12 +70,18 @@ def build_messages(history: list, query: str, context: str, intent: str,
             f"Write clear, well-organised notes about '{topic}'. "
             "Plain text with clear headings."
         )
+    elif intent == "playground":
+        task_prefix = (
+            f"Create an interactive canvas/diagram about '{topic}'. "
+            "Write informative markdown text, and if a visual is needed, provide a detailed Graphviz DOT block (```dot\n...\n```)."
+        )
     elif intent == "summarise":
         task_prefix = (
             "You have been given the full text content of a workspace document. "
-            "Please provide a clear, well-structured summary. "
+            "Please provide a clear, well-structured summary formatted in Markdown. "
             "Identify the main topics, key points, and any important details. "
-            "Organise your summary with headings if the document has multiple sections."
+            "Organise your summary with headings if the document has multiple sections. "
+            "You MUST also provide a detailed Graphviz DOT block (```dot\n...\n```) visually mapping the key concepts and structure of the document."
         )
     else:
         task_prefix = "Chat neutrally or answer questions. " + _identity_block()

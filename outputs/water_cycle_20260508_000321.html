@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Cycle Diagram</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.2.0/mermaid.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.2.0/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .mermaid {
+            margin: 0;
+        }
+        .mermaid .mermaid-flowchart {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mermaid">
+        <!-- Water Cycle Diagram -->
+        mermaid {
+            layout: flowchart
+            rankdir: LR
+            connectionStyle: solid
+            compass: true
+        }
+        graph LR
+        A[Evaporation] --> B{Condensation}
+        A --> C[Precipitation]
+        B --> D[Groundwater]
+        B --> E[Surface Runoff]
+        C --> F[Infiltration]
+        C --> G[Transpiration]
+        E --> F
+        F --> G
+    </div>
+
+    <h1>Water Cycle Diagram</h1>
+    <p>The water cycle describes the continuous movement of water on, above, and below the surface of the Earth. The diagram below illustrates the key processes involved in the water cycle.</p>
+</body>
+</html>

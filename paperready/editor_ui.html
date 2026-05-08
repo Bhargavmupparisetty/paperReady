@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperReady Canvas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/viz.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/full.render.js"></script>
+    <style>
+        :root {
+            /* Professional Blue Theme */
+            --bg-body: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-primary: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border-color: #e2e8f0;
+            --header-bg: #1e293b;
+            --header-text: #ffffff;
+            --code-bg: #f1f5f9;
+            --code-text: #0f172a;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 350px;
+            min-width: 250px;
+            max-width: 600px;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            padding: 20px;
+            background: var(--header-bg);
+            border-bottom: 3px solid var(--accent-primary);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--header-text);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 24px;
+            overflow-y: auto;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .resizer {
+            width: 6px;
+            background: var(--border-color);
+            cursor: col-resize;
+            transition: background 0.2s;
+            z-index: 20;
+        }
+
+        .resizer:hover, .resizer:active {
+            background: var(--accent-primary);
+        }
+
+        .canvas-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-body);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-header {
+            padding: 12px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            z-index: 5;
+        }
+
+        #graphviz-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #graphviz-container svg {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+        }
+
+        .empty-state {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 2rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        /* Markdown Styling */
+        .content h1, .content h2, .content h3 {
+            color: var(--text-main);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .content h1 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem;}
+        .content h2 { font-size: 1.25rem; }
+        
+        .content p { margin-bottom: 1rem; color: #334155; }
+        
+        .content code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            color: var(--accent-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .content pre code { 
+            padding: 0; 
+            background: transparent; 
+            color: var(--code-text);
+            border: none;
+        }
+        
+        .content ul, .content ol {
+            padding-left: 20px;
+            color: #334155;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="header">
+            <h1 id="topic-title">PaperReady Canvas</h1>
+            <p>Waiting for commands...</p>
+        </div>
+        <div class="content" id="markdown-content">
+            <div class="empty-state">Ready for input. Start chatting in the CLI to see results here.</div>
+        </div>
+    </div>
+
+    <div class="resizer" id="resizer"></div>
+
+    <div class="canvas-area">
+        <div class="canvas-header">
+            Visual Render (Graphviz)
+        </div>
+        <div id="graphviz-container">
+            <div class="empty-state">Diagrams will render here automatically.</div>
+        </div>
+    </div>
+
+    <script>
+        // Resizer Logic
+        const resizer = document.getElementById('resizer');
+        const sidebar = document.getElementById('sidebar');
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            const newWidth = e.clientX;
+            if (newWidth > 250 && newWidth < 800) {
+                sidebar.style.width = newWidth + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isResizing = false;
+            document.body.style.cursor = 'default';
+        });
+
+        // Graphviz & Polling Logic
+        const viz = new Viz();
+        let lastDotCode = null;
+        let lastHtml = null;
+
+        async function pollState() {
+            try {
+                const res = await fetch('/state');
+                const data = await res.json();
+                
+                document.getElementById('topic-title').innerText = data.topic;
+
+                if (data.html !== lastHtml) {
+                    lastHtml = data.html;
+                    document.getElementById('markdown-content').innerHTML = marked.parse(data.html);
+                }
+
+                if (data.graphviz && data.graphviz !== lastDotCode) {
+                    lastDotCode = data.graphviz;
+                    const container = document.getElementById('graphviz-container');
+                    try {
+                        const svgElement = await viz.renderSVGElement(data.graphviz);
+                        container.innerHTML = '';
+                        container.appendChild(svgElement);
+                    } catch (e) {
+                        console.error("Graphviz Render Error:", e);
+                        container.innerHTML = `<div class="empty-state" style="border-color: #ef4444; color: #ef4444;">
+                            <strong>Render Error:</strong><br>${e.message}
+                        </div>`;
+                    }
+                } else if (!data.graphviz && lastDotCode !== null) {
+                    lastDotCode = null;
+                    document.getElementById('graphviz-container').innerHTML = '<div class="empty-state">No diagram generated for this topic.</div>';
+                }
+
+            } catch (err) {
+                // Ignore fetch errors if server is restarting
+            }
+        }
+
+        setInterval(pollState, 1000);
+    </script>
+</body>
+</html>

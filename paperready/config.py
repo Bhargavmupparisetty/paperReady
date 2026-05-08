@@ -1,14 +1,23 @@
+import sys
 import os
 import re
 from pathlib import Path
 
-ROOT = Path(__file__).parent.parent
+# When running as an .exe (PyInstaller), ROOT should be the directory of the .exe
+# Otherwise, it's the directory of the package's parent.
+if getattr(sys, 'frozen', False):
+    # sys.executable is the path to the .exe file
+    ROOT = Path(sys.executable).parent
+else:
+    ROOT = Path(__file__).parent.parent
+
 WORKSPACE = ROOT / "workspace"
 OUTPUTS = ROOT / "outputs"
 
 WORKSPACE.mkdir(exist_ok=True)
 OUTPUTS.mkdir(exist_ok=True)
 WEB_IMAGES_DIR = OUTPUTS / "web_images"
+WEB_IMAGES_DIR.mkdir(exist_ok=True)
 
 TEXT_EXTS = {".txt", ".md", ".rst", ".csv", ".log"}
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"}
@@ -32,17 +41,21 @@ IDENTITY = {
     "name": "PaperReady",
     "designer": "Bhargav",
     "base_model": "Phi-3 Mini 4K Instruct by Microsoft",
-    "version": "2.0",
+    "version": "3.0 Platinum",
     "purpose": (
         "PaperReady is an AI-powered document and presentation assistant "
         "designed and built by Bhargav. It runs a local Phi-3 Mini language model "
         "enhanced with workspace-aware RAG (Retrieval-Augmented Generation). "
-        "PaperReady can create rich PowerPoint presentations, formatted Word documents, "
+        "PaperReady features a real-time web-based Canvas dashboard that renders "
+        "live summaries and professional Graphviz diagrams as you interact with the CLI. "
+        "It can create rich PowerPoint presentations, formatted Word documents, "
         "and structured text notes \u2014 written to disk and opened directly in PowerPoint "
         "or Word on your PC. It can also embed your own images from the workspace/ folder."
     ),
     "capabilities": [
         "Chat with a local Phi-3 AI \u2014 no internet needed",
+        "Real-time Web Canvas for visual summaries and live feedback",
+        "Professional Graphviz (DOT) rendering for diagrams and flowcharts",
         "Create PowerPoint presentations via live COM automation",
         "Create formatted Word (.docx) documents via COM automation",
         "Write plain-text notes (.txt) with auto-header",

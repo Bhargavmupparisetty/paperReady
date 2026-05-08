@@ -3,6 +3,7 @@ import re
 _INTENT_PATTERNS = {
     "pptx": re.compile(r"\b(powerpoint|pptx|presentation|slides?|slide deck)\b", re.I),
     "docx": re.compile(r"\b(word\s+doc(ument)?|docx|\.docx)\b", re.I),
+    "playground": re.compile(r"\b(diagram|flowchart|editor|playground|html|web\s*page|canvas)\b", re.I),
     "txt": re.compile(r"\b(notepad|text\s*file|\.txt|write\s+(to\s+)?file|save\s+(as\s+)?text)\b", re.I),
     "summarise": re.compile(
         r"\b(summarize|summarise|summary|read|open|explain|describe|"
@@ -38,6 +39,7 @@ def extract_topic(query: str) -> str:
     q = re.sub(r"\b\d+[\s-]*slides?\b", " ", q, flags=re.I)
     for kw in ["powerpoint", "pptx", "ppt", "presentation", "slides", "slide deck",
                "word document", "word doc", "docx", "notepad", "text file",
+               "diagram", "flowchart", "editor", "playground", "html", "web page", "canvas",
                "write a", "create a", "make a", "generate a",
                "write", "create", "make", "generate",
                "about", "on", "for", "regarding", "please", "me", "a"]:

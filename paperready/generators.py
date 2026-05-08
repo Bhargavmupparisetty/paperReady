@@ -12,6 +12,20 @@ try:
 except ImportError:
     WIN32_OK = False
 
+def create_html(topic: str, llm_text: str) -> Path:
+    fname = OUTPUTS / f"{_safe_filename(topic)}_{_timestamp()}.html"
+    # Remove markdown code fences if the model accidentally included them
+    html_content = llm_text.strip()
+    if html_content.startswith("```html"):
+        html_content = html_content[7:]
+    elif html_content.startswith("```"):
+        html_content = html_content[3:]
+    if html_content.endswith("```"):
+        html_content = html_content[:-3]
+    html_content = html_content.strip()
+    fname.write_text(html_content, encoding="utf-8")
+    return fname
+
 try:
     from pptx import Presentation
     from pptx.util import Inches, Pt

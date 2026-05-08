@@ -19,9 +19,20 @@ if %errorlevel% neq 0 (
 
 :: 2. Check and install dependencies automatically
 echo Checking and installing dependencies securely...
+echo (This may take a moment on first run to fetch the AI engine wheels)
+
+:: Try installing llama-cpp-python separately with a wheel-first preference to avoid CMake errors
+pip install llama-cpp-python --prefer-binary --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu --quiet
+
+:: Install remaining requirements
 pip install -r requirements.txt --quiet
+
 if %errorlevel% neq 0 (
-    echo [WARNING] There was an issue verifying dependencies. The app will try to run anyway.
+    echo.
+    echo [WARNING] There was an issue verifying some dependencies. 
+    echo If you see a 'CMake' error, please ensure you have the 
+    echo 'Microsoft Visual C++ Redistributable' installed.
+    echo The app will try to run anyway...
 )
 
 :: 3. Setup Windows automation just in case (Silently)
