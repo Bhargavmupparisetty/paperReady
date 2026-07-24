@@ -16,7 +16,7 @@
 *   **Data Sovereignty**: 100% offline. All inference and file generation happen on your local hardware. Zero data leakage.
 *   **Smart Web Search**: Automated Selenium-based scraping to fetch real-world data and images for your documents when needed.
 
-                  ![paperReady_UI_image](UI.png)
+  ![paperReady_UI_image](UI.png)
 
    paperReady terminal UI
 
